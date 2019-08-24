@@ -43,8 +43,7 @@ function sumWithDefaults(a, b = 100) {
    returnFnResult(() => 'привет') вернет 'привет'
  */
 function returnFnResult(fn) {
- var r = fn();
- return r;
+  return fn();  
 }
 
 /*
@@ -61,10 +60,10 @@ function returnFnResult(fn) {
    console.log(f()); // выведет 13
  */
 function returnCounter(number) {
-  var f = function () {
+   function F () {
     return number + 1;
   }
-  return f();
+  return F();
 }
 
 /*
@@ -98,8 +97,10 @@ function returnArgumentsArray() {
 
    console.log(newSum()) выведет 6
  */
-function bindFunction(fn) {
-
+function bindFunction(fn, a, b) {
+  return function () {
+    return fn.call(this, a, b)
+  }
 }
 
 export {
