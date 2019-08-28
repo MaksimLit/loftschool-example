@@ -6,8 +6,12 @@
  Напишите аналог встроенного метода forEach для работы с массивами
  Посмотрите как работает forEach и повторите это поведение для массива, который будет передан в параметре array
  */
-function forEach(array, fn) {
+function forEach(array, fn, thisArg) {
+  for (let i; i < array.length; i++) {
+    fn.call(thisArg, array[i], i, array);
+  }
 }
+
 
 /*
  Задание 2:
@@ -15,7 +19,12 @@ function forEach(array, fn) {
  Напишите аналог встроенного метода map для работы с массивами
  Посмотрите как работает map и повторите это поведение для массива, который будет передан в параметре array
  */
-function map(array, fn) {
+function map(array, fn, thisArg) {
+  const results = [];
+  for (let i = 0; i < array.length; i++) {
+    results.push(fn.call(thisArg, array[i], i, array));
+  }
+  return results;
 }
 
 /*
@@ -25,6 +34,11 @@ function map(array, fn) {
  Посмотрите как работает reduce и повторите это поведение для массива, который будет передан в параметре array
  */
 function reduce(array, fn, initial) {
+  let result = initial;
+  for (let i = 0; i < array.length; i++) {
+    result = fn.call(null, result, array[i], i, array);
+  }
+  return result;
 }
 
 /*
@@ -36,6 +50,12 @@ function reduce(array, fn, initial) {
    upperProps({ name: 'Сергей', lastName: 'Петров' }) вернет ['NAME', 'LASTNAME']
  */
 function upperProps(obj) {
+  const array = [];
+  for (let key in obj) {
+    key = key.toUpperCase();
+    array.push(key);    
+  }
+  return array;
 }
 
 /*
