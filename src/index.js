@@ -6,9 +6,9 @@
  Напишите аналог встроенного метода forEach для работы с массивами
  Посмотрите как работает forEach и повторите это поведение для массива, который будет передан в параметре array
  */
-function forEach(array, fn, thisArg) {
-  for (let i; i < array.length; i++) {
-    fn.call(thisArg, array[i], i, array);
+function forEach(array, fn) {
+  for (let i = 0; i < array.length; i++) {
+    fn(array[i], i, array);
   }
 }
 
@@ -19,10 +19,10 @@ function forEach(array, fn, thisArg) {
  Напишите аналог встроенного метода map для работы с массивами
  Посмотрите как работает map и повторите это поведение для массива, который будет передан в параметре array
  */
-function map(array, fn, thisArg) {
+function map(array, fn) {
   const results = [];
   for (let i = 0; i < array.length; i++) {
-    results.push(fn.call(thisArg, array[i], i, array));
+    results.push(fn(array[i], i, array));
   }
   return results;
 }
@@ -34,9 +34,10 @@ function map(array, fn, thisArg) {
  Посмотрите как работает reduce и повторите это поведение для массива, который будет передан в параметре array
  */
 function reduce(array, fn, initial) {
-  let result = initial;
-  for (let i = 0; i < array.length; i++) {
-    result = fn.call(null, result, array[i], i, array);
+  var result = initial || array[0],
+      i = initial ? 0 : 1;
+  for (i = 0; i < array.length; i++) {
+    result = fn(result, array[i], i, array);
   }
   return result;
 }
