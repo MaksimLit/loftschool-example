@@ -55,7 +55,7 @@ function isSomeTrue(array, fn) {
   }
   let result = false;
   for (let i = 0; i < array.length; i++) {
-    if (fn(src[i]) == true) {
+    if (fn(array[i]) == true) {
       result = true;
       return result;
     }
