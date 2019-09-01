@@ -53,13 +53,11 @@ function isSomeTrue(array, fn) {
   } else if (typeof fn != 'function') {
     throw new Error('fn is not a function');
   }
-  let result;
+  let result = false;
   for (let i = 0; i < array.length; i++) {
     if (fn(src[i]) == true) {
       result = true;
       return result;
-    } else {
-      result = false;
     }
   }
   return result;
@@ -113,36 +111,17 @@ function calculator(number = 0) {
   if (typeof number != 'number') {
     throw new Error('number is not a number');
   }
-  let result = number;
   let obj = {
-    sum: function() {
-      for (let i = 0; i < arguments.length; i++) {
-        result += arguments[i];
+    sum: (...args) => args.reduce((acum, elem) => acum + elem, number),
+    dif: (...args) => args.reduce((acum, elem) => acum - elem, number),
+    div: (...args) => args.reduce((acum, elem) => {
+      if (elem == 0) {
+        throw new Error('division by 0');
+      } else {
+        return acum / elem;
       }
-      return result;
-    },
-    dif: function() {
-      for (let i = 0; i < arguments.length; i++) {
-        result -= arguments[i];
-      }
-      return result;
-    },
-    div: function() {
-      for (let i = 0; i < arguments.length; i++) {
-        if (arguments[i] == 0) {
-          throw new Error('division by 0');
-        } else {
-          result /= arguments[i];
-        }
-      }
-      return result;
-    },
-    mul: function() {
-      for (let i = 0; i < arguments.length; i++) {
-        result *= arguments[i];
-      }
-      return result;
-    },
+    }, number),
+    mul: (...args) => args.reduce((acum, elem) => acum * elem, number),
   }
   return obj;
 }
