@@ -53,20 +53,6 @@ filterNameInput.addEventListener('keyup', function () {
 
 });
 
-window.addEventListener('DOMContentLoaded', () => {
-  const allCookie = parseCookie();
-
-  renderTable(allCookie);
-
-  listTable.addEventListener('click', e => {
-    if (e.target.classList.contains('button')) {
-      deleteCookie(e.target.dataset.name);
-      deleteRowTable(e.target.closest('tr'));
-    }
-  })
-
-});
-
 addButton.addEventListener('click', () => {
   // здесь можно обработать нажатие на кнопку "добавить cookie"
   const name = addNameInput.value;
@@ -104,6 +90,7 @@ function addCookie(name, value) {
     document.cookie = `${name}=${value};`;
   }
 }
+
 function deleteCookie(name) {
   document.cookie = `${name}='';`;
 
@@ -116,8 +103,6 @@ function deleteCookie(name) {
     document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
   }
 }
-
-
 
 function addRowTable(name, value) {
   const tr = document.createElement('tr');
@@ -139,7 +124,18 @@ function addRowTable(name, value) {
   tr.appendChild(tdValue);
   tr.appendChild(tdDel);
   listTable.appendChild(tr);
+
+  button.addEventListener('click', e => {
+    deleteCookie(e.target.dataset.name);
+    deleteRowTable(e.target.closest('tr'));
+  });
 }
+
+window.addEventListener('DOMContentLoaded', () => {
+  const allCookie = parseCookie();
+  renderTable(allCookie);
+});
+
 function deleteRowTable(row) {
   row.parentNode.removeChild(row);
 }
